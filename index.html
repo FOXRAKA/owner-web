@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JR SCRIPTS - Owner Panel Login</title>
+    <title>JR SCRIPTS - Owner Panel</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #07080a; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
@@ -15,56 +15,49 @@
         select, input { width: 100%; background: #141420; border: 1px solid #2e2e45; color: #fff; padding: 10px; border-radius: 8px; font-size: 13px; }
         .btn { background: linear-gradient(135deg, #ff9500, #ff3b30); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s; }
         .btn:hover { opacity: 0.9; }
-        .result-box { margin-top: 20px; background: #101018; border: 1px dashed #ffc107; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 13px; color: #ffc107; word-break: break-all; }
-        .back-link { display: block; margin-top: 15px; color: #8a8a9e; font-size: 11px; text-decoration: none; }
-        .back-link:hover { color: #fff; }
+        .result-box { margin-top: 15px; background: #101018; border: 1px dashed #ffc107; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 14px; color: #ffc107; word-break: break-all; font-weight: bold; }
         .error-msg { color: #ff3b30; font-size: 11px; margin-top: 8px; display: none; }
         #panelContent { display: none; }
     </style>
 </head>
 <body>
     <div class="card">
-        <!-- FORM LOGIN OWNER -->
+        <!-- LOGIN -->
         <div id="loginSection">
             <h2>🔐 OWNER LOGIN</h2>
-            <p>Masukkan akun rahasia untuk mengakses panel</p>
-            
+            <p>Masukkan akses rahasia</p>
             <div class="form-group">
                 <label>Username:</label>
-                <input type="text" id="userInput" placeholder="Masukkan username...">
+                <input type="text" id="userInput" placeholder="Username...">
             </div>
-            
             <div class="form-group">
                 <label>Password:</label>
-                <input type="password" id="passInput" placeholder="Masukkan password...">
+                <input type="password" id="passInput" placeholder="Password...">
             </div>
-
-            <button class="btn" onclick="checkLogin()">🔑 LOGIN PANEL</button>
+            <button class="btn" onclick="checkLogin()">🔑 LOGIN</button>
             <div class="error-msg" id="errorMsg">❌ Username atau Password salah!</div>
-            <a href="index.html" class="back-link">← Kembali ke Web Utama</a>
         </div>
 
-        <!-- PANEL GENERATOR (MUNCUL SETELAH LOGIN SUKSES) -->
+        <!-- PANEL -->
         <div id="panelContent">
             <h2>👑 JR SCRIPTS - OWNER PANEL</h2>
-            <p>Generator Key Giveaway & Pembeli Premium Discord</p>
+            <p>Generate Key Resmi Berbasis Algoritma</p>
 
             <div class="form-group">
-                <label>Pilih Jenis / Durasi Key:</label>
+                <label>Pilih Jenis / Durasi:</label>
                 <select id="durationSelect">
-                    <option value="24">24 Jam (1 Hari - Giveaway)</option>
-                    <option value="48">48 Jam (2 Hari - Giveaway)</option>
-                    <option value="86">86 Jam (~3.5 Hari - Giveaway)</option>
-                    <option value="240">240 Jam (10 Hari - Giveaway)</option>
-                    <option value="99999">👑 LIFETIME PREMIUM (Selamanya - Pembeli Discord)</option>
+                    <option value="24">24 Jam (Giveaway)</option>
+                    <option value="48">48 Jam (Giveaway)</option>
+                    <option value="240">10 Hari (Giveaway)</option>
+                    <option value="99999">👑 LIFETIME PREMIUM</option>
                 </select>
             </div>
 
             <button class="btn" onclick="generateKey()">⚡ GENERATE KEY</button>
 
             <div id="resultSection" style="display:none;">
-                <div class="result-box" id="keyOutput">JRXP-XXXX-XXXX</div>
-                <button class="btn" style="background: #00ffc8; color: #000; margin-top: 10px;" onclick="copyKey()">📋 SALIN KEY</button>
+                <div class="result-box" id="keyOutput">JRK-XXXX</div>
+                <button class="btn" style="background: #00ffc8; color: #000; margin-top: 8px;" onclick="copyKey()">📋 SALIN KEY</button>
             </div>
 
             <button class="btn" style="background: #252538; margin-top: 15px;" onclick="logout()">🔒 LOGOUT</button>
@@ -72,49 +65,41 @@
     </div>
 
     <script>
-        // Cek jika sebelumnya sudah pernah login di browser ini
         window.onload = function() {
-            if (localStorage.getItem("JR_OWNER_LOGGED_IN") === "true") {
-                showPanel();
-            }
+            if (localStorage.getItem("JR_OWNER_LOGGED_IN") === "true") showPanel();
         };
-
         function checkLogin() {
-            let user = document.getElementById("userInput").value;
-            let pass = document.getElementById("passInput").value;
-
-            if (user === "unikloo5" && pass === "1Sampe10") {
+            if (document.getElementById("userInput").value === "unikloo5" && document.getElementById("passInput").value === "1Sampe10") {
                 localStorage.setItem("JR_OWNER_LOGGED_IN", "true");
                 showPanel();
-            } else {
-                document.getElementById("errorMsg").style.display = "block";
-            }
+            } else { document.getElementById("errorMsg").style.display = "block"; }
         }
-
         function showPanel() {
             document.getElementById("loginSection").style.display = "none";
             document.getElementById("panelContent").style.display = "block";
         }
-
-        function logout() {
-            localStorage.removeItem("JR_OWNER_LOGGED_IN");
-            location.reload();
-        }
-
+        function logout() { localStorage.removeItem("JR_OWNER_LOGGED_IN"); location.reload(); }
+        
         function generateKey() {
-            let hours = document.getElementById("durationSelect").value;
-            let randomCode = Math.random().toString(36).substring(2, 9).toUpperCase();
-            let prefix = (hours === "99999") ? "JRXP-" : "JRKO-";
-            let key = prefix + (hours === "99999" ? "LIFETIME-" : hours + "H-") + randomCode;
+            let type = document.getElementById("durationSelect").value;
+            let prefix = (type === "99999") ? "JRXP-" : "JRK-";
             
+            // Algoritma Generator: Angka acak yang terikat dengan rumus matematika sederhana
+            let num1 = Math.floor(Math.random() * 90) + 10; // 2 digit angka
+            let num2 = (num1 * 3) + 7; // Rumus matematika rahasia owner
+            let chars = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+            let c1 = chars.charAt(Math.floor(Math.random() * chars.length));
+            let c2 = chars.charAt(Math.floor(Math.random() * chars.length));
+
+            let newKey = prefix + num1 + c1 + num2 + c2;
+
             document.getElementById("resultSection").style.display = "block";
-            document.getElementById("keyOutput").innerText = key;
+            document.getElementById("keyOutput").innerText = newKey;
         }
 
         function copyKey() {
-            let text = document.getElementById("keyOutput").innerText;
-            navigator.clipboard.writeText(text);
-            alert("Key berhasil disalin! Silakan berikan ke pembeli atau untuk event.");
+            navigator.clipboard.writeText(document.getElementById("keyOutput").innerText);
+            alert("Key berhasil disalin!");
         }
     </script>
 </body>
